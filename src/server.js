@@ -23,6 +23,8 @@ const app = express()
 // routes 
 const myUserRoute = require('./routes/myUserRoute')
 const myRestaurantRoute = require('./routes/myRestaurantRoute')
+const restaurantRoute = require('./routes/restaurantRoute')
+
 // middleware
 app.use(express.json())
 app.use(cors())
@@ -34,6 +36,7 @@ app.get('/health', async (req, res) => {
 
 app.use('/api/my/user', myUserRoute)
 app.use('/api/my/restaurant', myRestaurantRoute)
+app.use('/api/restaurant', restaurantRoute)
 
 app.listen(8080, () => {
     console.log("Server started on localhost:8080")
