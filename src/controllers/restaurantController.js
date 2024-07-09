@@ -1,5 +1,21 @@
 const Restraunt = require("../models/restaurant")
 
+const getRestaurant = async (req, res) => {
+    try {
+        const restaurantId = req.params.restaurantId
+        const restaurant = await Restraunt.findById(restaurantId)
+
+        if (!restaurant) {
+            return res.status(404).json({ message: "Restaurant not found" })
+        }
+
+        res.json(restaurant)  // res.json automatticall appands status code 200
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({ message: "Something went wrong" })
+    }
+}
+
 const searchRestaurant = async (req, res) => {
     // we use req.params for the main search which is "city" in this case
     // we use req.query for the filtering parameters like "country, estimatedDeliveryTime, rating, etc"
@@ -64,4 +80,4 @@ const searchRestaurant = async (req, res) => {
     }
 }
 
-module.exports = { searchRestaurant }
+module.exports = { searchRestaurant, getRestaurant }

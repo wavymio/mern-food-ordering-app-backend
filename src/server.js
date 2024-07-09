@@ -24,10 +24,12 @@ const app = express()
 const myUserRoute = require('./routes/myUserRoute')
 const myRestaurantRoute = require('./routes/myRestaurantRoute')
 const restaurantRoute = require('./routes/restaurantRoute')
+const orderRoute = require('./routes/OrderRoute')
 
 // middleware
-app.use(express.json())
 app.use(cors())
+app.use("/api/order/checkout/webhook", express.raw({ type: "*/*" }))
+app.use(express.json())
 
 // api calls
 app.get('/health', async (req, res) => {
@@ -37,6 +39,7 @@ app.get('/health', async (req, res) => {
 app.use('/api/my/user', myUserRoute)
 app.use('/api/my/restaurant', myRestaurantRoute)
 app.use('/api/restaurant', restaurantRoute)
+app.use('/api/order', orderRoute)
 
 app.listen(8080, () => {
     console.log("Server started on localhost:8080")
